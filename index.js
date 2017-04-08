@@ -14,7 +14,9 @@ bot.command('card', (ctx) => {
       ctx.reply(`Nao encontrei cartas com o nome ${cardName}`)
       return
     }
-    const names = new Set(cards.map(c => { c.name }))
+    const nonUniqueNames = cards.map(c => { c.name })
+    console.log(`nonUniqueNames: ${nonUniqueNames.join(' ')}`)
+    const names = new Set(nonUniqueNames)
     //Same card, different editions, get first one
     if (names.size == 1) {
       ctx.reply(cards[0].imageUrl)
