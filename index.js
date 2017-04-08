@@ -29,7 +29,7 @@ bot.command('card', (ctx) => {
       const options = Array.from(names).map((name, index) => `${index + 1}) ${name}`)
       ctx.reply(`Encontrei ${names.size} opcoes para ${cardName}: \n${options.join("\n")}`)
     }
-  }, (error) => {
+  }).fail(error => {
     ctx.reply(`Vixe, deu zika ${error}`)
   })
 })
