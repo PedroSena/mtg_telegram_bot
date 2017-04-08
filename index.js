@@ -19,6 +19,8 @@ bot.command('card', (ctx) => {
     if (names.size == 1) {
       ctx.reply(cards[0].imageUrl)
       return
+    } else {
+      ctx.reply(`I found ${names.size} entries for ${cardName}: ${names.join("<br/>")}`)
     }
   })
 })
