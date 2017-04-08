@@ -14,12 +14,18 @@ bot.command('card', (ctx) => {
       ctx.reply(`Nao encontrei cartas com o nome ${cardName}`)
       return
     }
-    const names = new Set(cards.map(c => c.name))
+    const nonUniqueNames = cards.map(c => c.name)
+    const names = new Set(nonUniqueNames)
     //Same card, different editions, get first one
     if (names.size == 1) {
       ctx.reply(cards[0].imageUrl)
       return
     } else {
+      if (index = nonUniqueNames.indexOf(cardName) != -1) {
+        ctx.reply(cards[index].imageUrl)
+        names.delete(cardName)
+      }
+
       const options = Array.from(names).map((name, index) => `${index + 1}) ${name}`)
       ctx.reply(`Encontrei ${names.size} opcoes para ${cardName}: \n${options.join("\n")}`)
     }
