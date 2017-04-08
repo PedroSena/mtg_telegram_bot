@@ -14,7 +14,7 @@ bot.command('card', (ctx) => {
       ctx.reply(`Nao encontrei cartas com o nome ${cardName}`)
       return
     }
-    const nonUniqueNames = cards.map(c => { c.name })
+    const nonUniqueNames = cards.map(c => c.name)
     console.log(`nonUniqueNames: ${nonUniqueNames.join(' ')}`)
     const names = new Set(nonUniqueNames)
     //Same card, different editions, get first one
