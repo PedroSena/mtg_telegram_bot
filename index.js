@@ -21,9 +21,9 @@ bot.command('card', (ctx) => {
       return
     } else {
       const options = Array.from(names).map( (name, index) => {
-        return `${index + 1} ${name}`
+        return `${index + 1}) ${name}`
       })
-      ctx.reply(`I found ${names.size} entries for ${cardName}: ${options.join("<br/>")}`)
+      ctx.reply(`I found ${names.size} entries for ${cardName}: ${options.join("\n")}`)
     }
   })
 })
