@@ -1,5 +1,6 @@
-const { Composer, mount, Telegraf } = require('micro-bot')
+const { Composer, mount } = require('micro-bot')
 const mtg = require('mtgsdk')
+const Telegraf = require('telegraf')
 
 const bot = new Composer()
 bot.use(Telegraf.memorySession())
