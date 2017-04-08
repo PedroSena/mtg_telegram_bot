@@ -10,7 +10,7 @@ bot.command('start', (ctx) => {
 bot.command('card', (ctx) => {
   const cardName = ctx.message.text.split("/card")[1].trim()
   mtg.card.where({name: cardName, pageSize: 10}).then(cards => {
-    const message = `I found ${cards.size} for ${cardName}`
+    const message = `I found ${cards.size} for ${cardName}!!`
     ctx.reply(message)  
   })
 })
