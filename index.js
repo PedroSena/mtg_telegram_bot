@@ -9,7 +9,8 @@ bot.command('start', (ctx) => {
 
 bot.command('card', (ctx) => {
   const cardName = ctx.message.text.split("/card")[1].trim()
-  mtg.card.where({name: cardName, pageSize: 15}).then(cards => {
+  const promise = mtg.card.where({name: cardName, pageSize: 15})
+  promise.then(cards => {
     if ( cards.length == 0 ) {
       ctx.reply(`Nao encontrei cartas com o nome ${cardName}`)
       return
@@ -29,7 +30,8 @@ bot.command('card', (ctx) => {
       const options = Array.from(names).map((name, index) => `${index + 1}) ${name}`)
       ctx.reply(`Encontrei ${names.size} opcoes para ${cardName}: \n${options.join("\n")}`)
     }
-  }).fail(error => {
+  })
+  promise.catch(error => {
     ctx.reply(`Vixe, deu zika ${error}`)
   })
 })
