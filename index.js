@@ -21,7 +21,7 @@ bot.command('card', (ctx) => {
       ctx.reply(cards[0].imageUrl)
       return
     } else {
-      if (index = nonUniqueNames.indexOf(cardName) != -1) {
+      if ((index = nonUniqueNames.indexOf(cardName)) != -1) {
         ctx.reply(cards[index].imageUrl)
         names.delete(cardName)
       }
