@@ -18,11 +18,11 @@ bot.command('card', (ctx) => {
     const names = new Set(nonUniqueNames)
     //Same card, different editions, get first one
     if (names.size == 1) {
-      ctx.reply(cards[0].imageUrl)
+      ctx.replyWithPhoto(cards[0].imageUrl)
       return
     } else {
       if ((index = nonUniqueNames.indexOf(cardName)) != -1) {
-        ctx.reply(cards[index].imageUrl)
+        ctx.replyWithPhoto(cards[index].imageUrl)
         names.delete(cardName)
       }
 
