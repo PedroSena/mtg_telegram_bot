@@ -1,7 +1,8 @@
-const { Composer, mount } = require('micro-bot')
+const { Composer, mount, Telegraf } = require('micro-bot')
 const mtg = require('mtgsdk')
 
 const bot = new Composer()
+bot.use(Telegraf.memorySession())
 
 bot.command('start', (ctx) => {
   ctx.reply('To na area')
@@ -9,6 +10,15 @@ bot.command('start', (ctx) => {
 
 bot.command('card', (ctx) => {
   const cardName = ctx.message.text.split("/card")[1].trim()
+
+  // Numeric option
+  if (cardName % 1 == 0) {
+    const card = ctx.session.cards[parseInt(cardName) - 1]
+    ctx.replyWithPhoto(card.imageUrl)
+    ctx.session.cards = null
+    return
+  }
+
   const promise = mtg.card.where({name: cardName, pageSize: 15})
   promise.then(cards => {
     if ( cards.length == 0 ) {
@@ -22,6 +32,7 @@ bot.command('card', (ctx) => {
       ctx.replyWithPhoto(cards[0].imageUrl)
       return
     } else {
+      ctx.session.cards = cards
       if ((index = nonUniqueNames.indexOf(cardName)) != -1) {
         ctx.replyWithPhoto(cards[index].imageUrl)
         names.delete(cardName)
