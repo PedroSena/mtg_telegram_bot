@@ -10,8 +10,11 @@ bot.command('start', (ctx) => {
 bot.command('card', (ctx) => {
   const cardName = ctx.message.text.split("/card")[1].trim()
   mtg.card.where({name: cardName, pageSize: 10}).then(cards => {
-    const message = `I found ${cards.size} for ${cardName}!!`
-    ctx.reply(message)  
+    const names = new Set(cards.map(c => { c.name }))
+    if (names.size == 1) {
+      ctx.reply(cards[0].imageUrl)
+      return
+    }
   })
 })
 
