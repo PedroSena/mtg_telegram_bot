@@ -34,7 +34,7 @@ bot.command('card', (ctx) => {
       ctx.session.cards = namesArray
       if ((index = nonUniqueNames.indexOf(cardName)) != -1) {
         ctx.replyWithPhoto(cards[index].imageUrl)
-        names.delete(cardName)
+        namesArray.delete(cardName)
       }
 
       const options = namesArray.map((name, index) => `${index + 1}) ${name}`)
