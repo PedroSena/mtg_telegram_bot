@@ -14,7 +14,8 @@ bot.command('card', (ctx) => {
 
   // Numeric option
   if (cardName % 1 == 0) {
-    cardName = ctx.session.cards[parseInt(cardName) - 1]
+    const cardsNames = Array.from(ctx.session.cards)
+    cardName = cardsNames[parseInt(cardName) - 1]
   }
 
   const promise = mtg.card.where({name: cardName, pageSize: 15})
@@ -30,14 +31,13 @@ bot.command('card', (ctx) => {
       ctx.replyWithPhoto(cards[0].imageUrl)
       return
     } else {
-      const namesArray = Array.from(names)
-      ctx.session.cards = namesArray
+      ctx.session.cards = names
       if ((index = nonUniqueNames.indexOf(cardName)) != -1) {
         ctx.replyWithPhoto(cards[index].imageUrl)
-        namesArray.delete(cardName)
+        names.delete(cardName)
       }
 
-      const options = namesArray.map((name, index) => `${index + 1}) ${name}`)
+      const options = Array.from(names).map((name, index) => `${index + 1}) ${name}`)
       ctx.reply(`Encontrei ${names.size} opcoes para ${cardName}: \n${options.join("\n")}`)
     }
   })
