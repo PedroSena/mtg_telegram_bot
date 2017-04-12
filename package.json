@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "micro-bot -d ${URL}"
+    "start": "micro-bot -d ${NOW_URL}"
   },
   "author": "Pedro Sena",
   "license": "GPL3",

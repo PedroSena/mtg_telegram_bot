@@ -21,15 +21,19 @@ bot.command('card', (ctx) => {
   const promise = mtg.card.where({name: cardName, pageSize: 15})
   promise.then(cards => {
     if ( cards.length == 0 ) {
-      ctx.reply(`Nao encontrei cartas com o nome ${cardName}`)
+      ctx.reply(`Nao encontrei ${cardName}`)
       return
     }
     const nonUniqueNames = cards.map(c => c.name)
     const names = new Set(nonUniqueNames)
     //Same card, different editions, get first one
     if (names.size == 1) {
-      ctx.replyWithPhoto(cards[0].imageUrl)
-      return
+      const card = cards.find(c => c.imageUrl != null)
+      if (card == null) {
+        ctx.reply(`Nao ha imagens para ${cardName}`)
+        return
+      }
+      ctx.replyWithPhoto(card.imageUrl)
     } else {
       ctx.session.cards = names
       if ((index = nonUniqueNames.indexOf(cardName)) != -1) {
